@@ -1,23 +1,32 @@
 type Query {
+    # Our ticker resolver fetches data from coingecko's API and then inserts a historical price data object
+    # into our DynamoDB table using an AppSync pipeline resolver.
     ticker(ticker: String!): TickerInfo
 }
+
+# Contains information about the ticker present in the URL.
 type TickerInfo {
+    # The ticker & latestPrice are returned as part of the object returned by the Query.ticker resolver
     ticker: String!
     latestPrice: PriceData
+
+    # The priceHistory field has an attached unit resolver that reads the price history directly out of DynamoDB.
+    # You may pass the limit and nextToken arguments to paginate through the price data.
     priceHistory(limit: Int, nextToken: String): HistoricalPriceConnection
 }
-type PriceData {
-    usd: Float
-}
-type HistoricalPriceData {
-    ticker: String
-    priceUSD: Float
-    timestamp: String
-}
+
 # The purpose of the `XConnection` pattern is to provide pagination to resources with potentially
 # large numbers of items such as this price history. The limit & nextToken arguments on `TickerInfo.priceHistory`
 # are used to control the results in this connection.
 type HistoricalPriceConnection {
     nextToken: String
     items: [HistoricalPriceData]
+}
+type HistoricalPriceData {
+    ticker: String
+    priceUSD: Float
+    timestamp: String
+}
+type PriceData {
+    usd: Float
 }
