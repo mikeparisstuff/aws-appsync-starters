@@ -1,4 +1,3 @@
 packages:
-  - 'packages/cdk'
+  - 'packages/infra'
   - 'packages/sveltekit-app'
-  - 'packages/react-app'
