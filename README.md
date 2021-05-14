@@ -21,7 +21,7 @@ A starter template that uses SvelteKit & AWS AppSync.
 If we think this is useful and you do build a sample app in some other framework, send a PR and I'll merge it. If we want
 we can work on adding these to AWSLabs' Github.
 
-## Getting Started
+# Getting Started
 
 1. [Install CDK](https://docs.aws.amazon.com/cdk/latest/guide/getting_started.html)
     - If this is your first time using CDK, you will need to `cdk bootstrap` (details on the page above)
@@ -29,6 +29,8 @@ we can work on adding these to AWSLabs' Github.
     -  `pnpm run cdk deploy --filter infra`
 3. Start the development server
     - `pnpm run dev --filter sveltekit-app`
+
+# Packages
 
 ## `packages/sveltekit-app`
 
