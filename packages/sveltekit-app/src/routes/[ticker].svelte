@@ -103,7 +103,6 @@ smarts that make it easy to turn your svelte components into full website routes
 </script>
 
 <script lang="ts">
-    import '../global.css'
     /**
      * This is normal svelte <script /> and thus runs within the normal component lifecycle. It defines two props,
      * ticker & prices that are provided data by the pre-render phase's load function in the "module" <script /> above.
