@@ -1,7 +1,6 @@
 # Welcome to your SvelteKit website!
 
-This package contains a starter template that implements a server-side rendered website. To do so, this package uses
-[SvelteKit](https://kit.svelte.dev/) which makes it way easier than it should be to build optimizes, SSR websites.
+This package contains a starter template that implements a "mostly" server-side rendered website using Svelte & SvelteKit.
 
 Why might I want to build a server-side rendered website? 
 
@@ -16,6 +15,18 @@ Why would I not want to use SSR?
 The main downside is that you need to run a server. If you build a SPA, you can often just deploy it to something like
 Amplify console, GitHub pages, Netlify, etc. Deploying static SPA's scale up forever and require less infrastructure to
 run.
+
+Why did I say "mostly" in the opening sentence?
+
+SvelteKit will always render the first page load of a session on the server. This is good as requests coming from
+SEO robots trigger this and thus they get back plain HTML that is easy to parse and index. However, SvelteKit goes
+a bit further and also uses a service-worker on the client to orchestrate things such that after the initial page load,
+things will start hydrating directly on the client.
+
+This is trying to accomplish a "best of both worlds" where we get the SEO friendliness of SSR as well as the fluid &
+dynamic user experience of a SPA within the same package. A downside of this is that it can sometimes be a bit tricky
+to figure out if your SvelteKit logic is running on the server or client at any given time. You should use svelte's
+[`onMount`](https://svelte.dev/tutorial/onmount) lifecycle hook to write code that only executes on the client when using SvelteKit.
 
 # What is in this project
 

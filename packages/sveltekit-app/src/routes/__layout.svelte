@@ -1,3 +1,10 @@
+<!--
+The __layout.svelte file is common to all routes at this level in the routing heirarchy.
+See https://kit.svelte.dev/docs#layouts for more details.
+
+At the bottom of this page, you will see a <slot></slot> HTML tag. Slots are key to component composition within
+Svelte. Read more about them here: https://svelte.dev/tutorial/slots
+-->
 <script lang="ts">
     import '../global.css'
 </script>
@@ -68,4 +75,6 @@
     </div>
 </nav>
 
-<slot></slot>
+<div class="container flex flex-wrap pt-4 pb-10 m-auto mt-6 md:mt-15 lg:px-12 xl:px-16">
+    <slot></slot>
+</div>

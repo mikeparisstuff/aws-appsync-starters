@@ -37,11 +37,24 @@ smarts that make it easy to turn your svelte components into full website routes
 
     import type {LoadInput, LoadOutput} from "@sveltejs/kit/types/page";
 
+    // This is generally a bad idea to store credentials directly in the JS code like this. Even though SvelteKit is
+    // SSR most of the time, there are times when this function can be run on the client and thus these could be leaked.
+    // It would be better if we were using OIDC/Cognito/IAM/etc.
     const appsyncEndpoint = 'https://glhimdmw2rh5zm5vqaptrdl5ku.appsync-api.us-west-2.amazonaws.com/graphql'
     const appsyncApiKey = 'da2-gozaaexjebdavg2xbofeqgvasy'
     const limit = 25
 
+    /**
+     * We use AppSync to load all of the data that we need for this route in a single HTTP request.
+     * As your application grows, you can tweak your query to get more data such that the components that render
+     * the application do not need to worry about fetching data.
+     *
+     * This pattern is particularly useful with SSR applications but if you were building an SPA, you would likely
+     * so this differently and would start considering things such as client side, normalized caches and more feature
+     * rich frontend tooling for GraphQL like Facebook's RelayJS or ApolloClient et al.
+     */
     export async function load({ page, fetch }: LoadInput): Promise<LoadOutput> {
+        // We get the ticker from the glob pattern in the URL
         const ticker = page.params.ticker || 'bitcoin'
         const res = await fetch(appsyncEndpoint, {
             method: 'POST',
@@ -75,15 +88,6 @@ smarts that make it easy to turn your svelte components into full website routes
         if (res.ok) {
             const prices = await res.json()
             const tickerInfo = prices?.data?.ticker
-            // const hasNoPrices = !!tickerInfo
-            // If we can't find the price we are looking for, redirect to a known price.
-            // if (hasNoPrices) {
-            //     return {
-            //         status: 302,
-            //         redirect: '/bitcoin'
-            //     }
-            // }
-            // If all else fails, return a 200 w/ our props that the component will render.
             return {
                 status: 200,
                 props: {
@@ -131,53 +135,51 @@ smarts that make it easy to turn your svelte components into full website routes
     }
 </script>
 
-<div class="container flex flex-wrap pt-4 pb-10 m-auto mt-6 md:mt-15 lg:px-12 xl:px-16">
-    {#if tickerInfo?.latestPrice?.usd}
-    <div class="w-full px-0 lg:px-4">
-        <div class="flex flex-wrap items-center justify-center py-4 pt-0">
-            <div class="flex-grow">
-            </div>
-
-            <div class="w-full md:w-1/2 lg:w-1/2 drop-shadow-md">
-                <label class="flex flex-col rounded-lg shadow-lg relative cursor-pointer hover:shadow-2xl">
-                    <div class="w-full px-4 py-8 rounded-t-lg bg-green-500">
-                        <h3 class="mx-auto text-base font-semibold text-center underline group-hover:text-white">
-                            {tickerInfo.ticker.charAt(0).toUpperCase() + tickerInfo.ticker.slice(1, tickerInfo.ticker.length)}
-                        </h3>
-                        <p class="text-5xl font-bold text-center">
-                            <span class="text-3xl">${formatMoney(tickerInfo.latestPrice.usd, 2)}</span>
-                        </p>
-                    </div>
-                    <div class="flex flex-col items-center justify-center w-full h-full py-6 rounded-b-lg bg-white">
-                        <p class="text-xl">
-                            Historical Prices
-                        </p>
-                        <table class="table-auto w-full">
-                            <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Price</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {#each tickerInfo.priceHistory.items as item}
-                                <tr>
-                                    <td class="text-center">{new Date(item.timestamp).toLocaleDateString()}</td>
-                                    <td class="text-center">${formatMoney(item.priceUSD, 2)}</td>
-                                </tr>
-                            {/each}
-                            </tbody>
-                        </table>
-                    </div>
-                </label>
-            </div>
-
-            <div class="flex-grow">
-            </div>
-
+{#if tickerInfo?.latestPrice?.usd}
+<div class="w-full px-0 lg:px-4">
+    <div class="flex flex-wrap items-center justify-center py-4 pt-0">
+        <div class="flex-grow">
         </div>
+
+        <div class="w-full md:w-1/2 lg:w-1/2 drop-shadow-md">
+            <label class="flex flex-col rounded-lg shadow-lg relative cursor-pointer hover:shadow-2xl">
+                <div class="w-full px-4 py-8 rounded-t-lg bg-green-500">
+                    <h3 class="mx-auto text-base font-semibold text-center underline group-hover:text-white">
+                        {tickerInfo.ticker.charAt(0).toUpperCase() + tickerInfo.ticker.slice(1, tickerInfo.ticker.length)}
+                    </h3>
+                    <p class="text-5xl font-bold text-center">
+                        <span class="text-3xl">${formatMoney(tickerInfo.latestPrice.usd, 2)}</span>
+                    </p>
+                </div>
+                <div class="flex flex-col items-center justify-center w-full h-full py-6 rounded-b-lg bg-white">
+                    <p class="text-xl">
+                        Historical Prices
+                    </p>
+                    <table class="table-auto w-full">
+                        <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Price</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {#each tickerInfo.priceHistory.items as item}
+                            <tr>
+                                <td class="text-center">{new Date(item.timestamp).toLocaleString()}</td>
+                                <td class="text-center">${formatMoney(item.priceUSD, 2)}</td>
+                            </tr>
+                        {/each}
+                        </tbody>
+                    </table>
+                </div>
+            </label>
+        </div>
+
+        <div class="flex-grow">
+        </div>
+
     </div>
-    {:else}
-        <h2>Ticker Not Found</h2>
-    {/if}
 </div>
+{:else}
+    <h2>Ticker Not Found</h2>
+{/if}
