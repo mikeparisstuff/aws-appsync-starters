@@ -1,6 +1,6 @@
 # aws-appsync-starters
 
-A starter template that uses SvelteKit & AWS AppSync.
+A set of cool starter templates for websites built with AWS AppSync.
 
 # A few project ideas
 
