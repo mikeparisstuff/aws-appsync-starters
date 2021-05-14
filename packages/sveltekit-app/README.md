@@ -30,7 +30,15 @@ are server-side rendered and thus by the time HTML is delivered to your users, t
 You can use this file to include additional typings that the typescript compiler is aware of.
 This can be useful if you want to pull in a library that does not export typescript typings or
 have a corresponding `@types/<module>` registered with DefinitelyTyped although this is increasingly rare.
-Link to DefinitelyTyped repo: (https://github.com/DefinitelyTyped/DefinitelyTyped)
+Link to [DefinitelyTyped Repo](https://github.com/DefinitelyTyped/DefinitelyTyped)
+
+## `/src/global.css`
+
+This project uses [tailwindcss](https://tailwindcss.com/) for styling. I spent all of 5 minutes styling this thing but it
+is setup fairly well to leverage tailwind which is a powerful and popular CSS framework. My favorite part of tailwind is
+that it also operates somewhat like a compiler in that it will only include the styles associated with classes or utilities
+that you are using in your code. This means you get to use the full CSS framework but you only pay for what you use in
+terms of production bundle size. Bundle creep is very easy to ignore but it makes a big different in terms of load time.
 
 ## `/src/routes/[ticker].svelte`
 
