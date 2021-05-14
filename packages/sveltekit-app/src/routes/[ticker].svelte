@@ -1,21 +1,21 @@
+<!--
+Svelte files look like plain HTML at first glance, but Svelte & Svelte Kit have a lot of goodies baked in, and its
+worth reading through the documentation to get a deeper understanding for how this all works (https://svelte.dev/) & (https://kit.svelte.dev/).
+
+The TLDR is that `svelte` is similar in spirit to react but most of the complicated work is done at
+compile time in svelte instead of runtime, like in react. A by-product of this is that svelte applications
+can be like really, really fast. Think of Svelte as a library (similar to how react frames itself) but
+also as a compiler that collects svelte, js/ts, and other input sources and produces an optimized JS bundle
+that implements your application on top of the browser DOM.
+
+SvelteKit is to svelte as a tool like Next.js is to react or Nuxt.js is to vue. It provides some opinionated
+guard rails that make it way easier than it should be to build an efficient, server-side rendered application.
+This file exists at `routes/index.svelte` which according to SvelteKit rules means that it will serve the root
+of our webpage (i.e. `www.mysite.com/`). In other words, SvelteKit provides an HTTP server and some wiring
+smarts that make it easy to turn your svelte components into full website routes that are SEO-friendly.
+-->
 <script context="module" lang="ts">
     /**
-     * Svelte files look like plain HTML at first glance, but Svelte & Svelte Kit have a lot of
-     * goodies baked in, and its worth reading through the documentation to get a deeper
-     * understanding for how this all works (https://svelte.dev/) & (https://kit.svelte.dev/).
-     *
-     * The TLDR is that `svelte` is similar in spirit to react but most of the complicated work is done at
-     * compile time in svelte instead of runtime, like in react. A by-product of this is that svelte applications
-     * can be like really, really fast. Think of Svelte as a library (similar to how react frames itself) but
-     * also as a compiler that collects svelte, js/ts, and other input sources and produces an optimized JS bundle
-     * that implements your application on top of the browser DOM.
-     *
-     * SvelteKit is to svelte as a tool like Next.js is to react or Nuxt.js is to vue. It provides some opinionated
-     * guard rails that make it way easier than it should be to build an efficient, server-side rendered application.
-     * This file exists at `routes/index.svelte` which according to SvelteKit rules means that it will serve the root
-     * of our webpage (i.e. `www.mysite.com/`). In other words, SvelteKit provides an HTTP server and some wiring
-     * smarts that make it easy to turn your svelte components into full website routes that are SEO-friendly.
-     *
      * Take a note of the `context="module"` in the <script /> tag above. This is another SvelteKit specific feature
      * that allows this block of code to run prior to rendering the page on the server. This is useful to us as it
      * provides us a convenient hook in which we can query our AppSync API to fetch all the data needed for this route.
