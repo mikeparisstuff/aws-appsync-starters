@@ -23,11 +23,16 @@ we can work on adding these to AWSLabs' Github.
 
 # Getting Started
 
-1. [Install CDK](https://docs.aws.amazon.com/cdk/latest/guide/getting_started.html)
+1. [Install NodeJS](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
+   - There are many ways to do this, I typically use some version manager like `nvm` but you can also use homebrew `https://formulae.brew.sh/formula/node`.
+2. [Install PNPM](https://pnpm.io/installation)
+   - `npm install -g pnpm`
+   - pnpm is like npm, but is built by Microsoft and offers some nice performance benefits. It as well has built in support for mono-repos which we are using here as well.
+3. [Install CDK](https://docs.aws.amazon.com/cdk/latest/guide/getting_started.html)
     - If this is your first time using CDK, you will need to `cdk bootstrap` (details on the page above)
-2. Deploy your AppSync API & database
+4. Deploy your AppSync API & database
     -  `pnpm run cdk deploy --filter infra`
-3. Start the development server
+5. Start the development server
     - `pnpm run dev --filter sveltekit-app`
 
 # Packages
