@@ -136,50 +136,50 @@ smarts that make it easy to turn your svelte components into full website routes
 </script>
 
 {#if tickerInfo?.latestPrice?.usd}
-<div class="w-full px-0 lg:px-4">
-    <div class="flex flex-wrap items-center justify-center py-4 pt-0">
-        <div class="flex-grow">
-        </div>
+    <div class="w-full px-0 lg:px-4">
+        <div class="flex flex-wrap items-center justify-center py-4 pt-0">
+            <div class="flex-grow">
+            </div>
 
-        <div class="w-full md:w-1/2 lg:w-1/2 drop-shadow-md">
-            <label class="flex flex-col rounded-lg shadow-lg relative cursor-pointer hover:shadow-2xl">
-                <div class="w-full px-4 py-8 rounded-t-lg bg-green-500">
-                    <h3 class="mx-auto text-base font-semibold text-center underline group-hover:text-white">
-                        {tickerInfo.ticker.charAt(0).toUpperCase() + tickerInfo.ticker.slice(1, tickerInfo.ticker.length)}
-                    </h3>
-                    <p class="text-5xl font-bold text-center">
-                        <span class="text-3xl">${formatMoney(tickerInfo.latestPrice.usd, 2)}</span>
-                    </p>
-                </div>
-                <div class="flex flex-col items-center justify-center w-full h-full py-6 rounded-b-lg bg-white">
-                    <p class="text-xl">
-                        Historical Prices
-                    </p>
-                    <table class="table-auto w-full">
-                        <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Price</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {#each tickerInfo.priceHistory.items as item}
+            <div class="w-full md:w-1/2 lg:w-1/2 drop-shadow-md">
+                <label class="flex flex-col rounded-lg shadow-lg relative cursor-pointer hover:shadow-2xl">
+                    <div class="w-full px-4 py-8 rounded-t-lg bg-green-500">
+                        <h3 class="mx-auto text-base font-semibold text-center underline group-hover:text-white">
+                            {tickerInfo.ticker.charAt(0).toUpperCase() + tickerInfo.ticker.slice(1, tickerInfo.ticker.length)}
+                        </h3>
+                        <p class="text-5xl font-bold text-center">
+                            <span class="text-3xl">${formatMoney(tickerInfo.latestPrice.usd, 2)}</span>
+                        </p>
+                    </div>
+                    <div class="flex flex-col items-center justify-center w-full h-full py-6 rounded-b-lg bg-white">
+                        <p class="text-xl">
+                            Historical Prices
+                        </p>
+                        <table class="table-auto w-full">
+                            <thead>
                             <tr>
-                                <td class="text-center">{new Date(item.timestamp).toLocaleString()}</td>
-                                <td class="text-center">${formatMoney(item.priceUSD, 2)}</td>
+                                <th>Date</th>
+                                <th>Price</th>
                             </tr>
-                        {/each}
-                        </tbody>
-                    </table>
-                </div>
-            </label>
-        </div>
+                            </thead>
+                            <tbody>
+                            {#each tickerInfo.priceHistory.items as item}
+                                <tr>
+                                    <td class="text-center">{new Date(item.timestamp).toLocaleString()}</td>
+                                    <td class="text-center">${formatMoney(item.priceUSD, 2)}</td>
+                                </tr>
+                            {/each}
+                            </tbody>
+                        </table>
+                    </div>
+                </label>
+            </div>
 
-        <div class="flex-grow">
-        </div>
+            <div class="flex-grow">
+            </div>
 
+        </div>
     </div>
-</div>
 {:else}
     <h2>Ticker Not Found</h2>
 {/if}
