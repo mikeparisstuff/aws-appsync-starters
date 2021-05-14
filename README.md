@@ -14,6 +14,9 @@ A starter template that uses SvelteKit & AWS AppSync.
     - Connect a lambda function that does some additional processing on the priceHistory feed.
     - Add a caching rule that will cache price data for N minutes.
     - Add subscriptions using svelte's `onMount` and AppSync that publishing price changes anytime anyone refreshes the page.
+5. A customer experience case study.
+   - Work through building an AppSync API and think notice any and all sharp edges.
+   - There can be quite a few pitfalls as you need to learn a few things such as: VTL, CloudFormation, AppSync specifics, GraphQL, CDK/AmplifyCLI, and more. Develop empathy with our customers and identify areas to improve.
 
 If we think this is useful and you do build a sample app in some other framework, send a PR and I'll merge it. If we want
 we can work on adding these to AWSLabs' Github.
