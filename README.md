@@ -1,2 +1,11 @@
 # aws-appsync-starters
-A set of starter templates using AWS AppSync, sveltekit, and react.
+
+A starter template that uses SvelteKit & AWS AppSync.
+
+## `packages/sveltekit-app`
+
+A server-side rendered website built with SvelteKit.
+
+### How to run
+
+`pnpm run dev --filter sveltekit-app`

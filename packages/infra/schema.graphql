@@ -1,3 +1,11 @@
+type Query {
+    ticker(ticker: String!): TickerInfo
+}
+type TickerInfo {
+    ticker: String!
+    latestPrice: PriceData
+    priceHistory(limit: Int, nextToken: String): HistoricalPriceConnection
+}
 type PriceData {
     usd: Float
 }
@@ -6,15 +14,10 @@ type HistoricalPriceData {
     priceUSD: Float
     timestamp: String
 }
+# The purpose of the `XConnection` pattern is to provide pagination to resources with potentially
+# large numbers of items such as this price history. The limit & nextToken arguments on `TickerInfo.priceHistory`
+# are used to control the results in this connection.
 type HistoricalPriceConnection {
     nextToken: String
     items: [HistoricalPriceData]
-}
-type TickerInfo {
-    ticker: String!
-    latestPrice: PriceData
-    priceHistory(limit: Int, nextToken: String): HistoricalPriceConnection
-}
-type Query {
-    ticker(ticker: String!): TickerInfo
 }

@@ -75,7 +75,7 @@ smarts that make it easy to turn your svelte components into full website routes
         if (res.ok) {
             const prices = await res.json()
             const tickerInfo = prices?.data?.ticker
-            const hasNoPrices = !!tickerInfo
+            // const hasNoPrices = !!tickerInfo
             // If we can't find the price we are looking for, redirect to a known price.
             // if (hasNoPrices) {
             //     return {
@@ -120,7 +120,7 @@ smarts that make it easy to turn your svelte components into full website routes
     }
     export let tickerInfo: TickerInfo
 
-    export function formatMoney(amount: number, decimalCount = 2, decimal = ".", thousands = ",") {
+    export function formatMoney(amount: number, decimalCount = 2, decimal = ".", thousands = ","): string {
         decimalCount = Math.abs(decimalCount);
         decimalCount = isNaN(decimalCount) ? 2 : decimalCount;
         const negativeSign = amount < 0 ? "-" : "";
@@ -133,42 +133,40 @@ smarts that make it easy to turn your svelte components into full website routes
 </script>
 
 <div class="container flex flex-wrap pt-4 pb-10 m-auto mt-6 md:mt-15 lg:px-12 xl:px-16">
+    {#if tickerInfo?.latestPrice?.usd}
     <div class="w-full px-0 lg:px-4">
-        <h2 class="px-12 pb-3 text-base font-bold text-center md:text-2xl text-green-700">
-            Crypto Ticker
-        </h2>
         <div class="flex flex-wrap items-center justify-center py-4 pt-0">
             <div class="flex-grow">
             </div>
 
             <div class="w-full md:w-1/2 lg:w-1/2 drop-shadow-md">
                 <label class="flex flex-col rounded-lg shadow-lg relative cursor-pointer hover:shadow-2xl">
-                    <div class="w-full px-4 py-8 rounded-t-lg bg-green-100">
+                    <div class="w-full px-4 py-8 rounded-t-lg bg-green-500">
                         <h3 class="mx-auto text-base font-semibold text-center underline group-hover:text-white">
                             {tickerInfo.ticker.charAt(0).toUpperCase() + tickerInfo.ticker.slice(1, tickerInfo.ticker.length)}
                         </h3>
                         <p class="text-5xl font-bold text-center">
-                            <span class="text-3xl">{formatMoney(tickerInfo.latestPrice.usd, '$')}</span>
+                            <span class="text-3xl">${formatMoney(tickerInfo.latestPrice.usd, 2)}</span>
                         </p>
                     </div>
-                    <div class="flex flex-col items-center justify-center w-full h-full py-6 rounded-b-lg bg-green-700 text-white">
-                        <p class="text-xl text-white">
+                    <div class="flex flex-col items-center justify-center w-full h-full py-6 rounded-b-lg bg-white">
+                        <p class="text-xl">
                             Historical Prices
                         </p>
-                        <table class="table-auto w-full text-white">
+                        <table class="table-auto w-full">
                             <thead>
-                                <tr>
-                                    <th>Date</th>
-                                    <th>Price</th>
-                                </tr>
+                            <tr>
+                                <th>Date</th>
+                                <th>Price</th>
+                            </tr>
                             </thead>
                             <tbody>
-                                {#each tickerInfo.priceHistory.items as item}
-                                    <tr>
-                                        <td class="text-center">{new Date(item.timestamp).toLocaleDateString()}</td>
-                                        <td class="text-center">{formatMoney(item.priceUSD)}</td>
-                                    </tr>
-                                {/each}
+                            {#each tickerInfo.priceHistory.items as item}
+                                <tr>
+                                    <td class="text-center">{new Date(item.timestamp).toLocaleDateString()}</td>
+                                    <td class="text-center">${formatMoney(item.priceUSD, 2)}</td>
+                                </tr>
+                            {/each}
                             </tbody>
                         </table>
                     </div>
@@ -180,8 +178,7 @@ smarts that make it easy to turn your svelte components into full website routes
 
         </div>
     </div>
+    {:else}
+        <h2>Ticker Not Found</h2>
+    {/if}
 </div>
-
-<!--<div class="flex flex-col">-->
-<!--    -->
-<!--</div>-->

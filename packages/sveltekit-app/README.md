@@ -44,10 +44,10 @@ terms of production bundle size. Bundle creep is very easy to ignore but it make
 
 The `/src/routes` directory is special in SvelteKit. Every `*.svelte` file in this directory becomes a route in your
 website. By using the `[ticker]` syntax, I am telling SvelteKit to match the path pattern and expose it to me in the
-component via `page.params.ticker` in the `onLoad` function. This allows us to change the content of the page depending
+component via `page.params.ticker` in the `load` function. This allows us to change the content of the page depending
 on the URL in the browser.
 
-Our `[ticker].svelte` route is simple, it uses SvelteKit's `onLoad` function to issue a single GraphQL query to our
+Our `[ticker].svelte` route is simple, it uses SvelteKit's `load` function to issue a single GraphQL query to our
 AppSync API that contains all the data that we need to hydrate the HTML for that route. GraphQL offers us a really
 nice pattern in this case, as we can do a single HTTP request per page load that gets all the data that we need to render
 the entire page.
