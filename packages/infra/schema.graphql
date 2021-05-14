@@ -1,0 +1,20 @@
+type PriceData {
+    usd: Float
+}
+type HistoricalPriceData {
+    ticker: String
+    priceUSD: Float
+    timestamp: String
+}
+type HistoricalPriceConnection {
+    nextToken: String
+    items: [HistoricalPriceData]
+}
+type TickerInfo {
+    ticker: String!
+    latestPrice: PriceData
+    priceHistory(limit: Int, nextToken: String): HistoricalPriceConnection
+}
+type Query {
+    ticker(ticker: String!): TickerInfo
+}

@@ -1,0 +1,8 @@
+{
+  "name": "root",
+  "private": true,
+  "devDependencies": {},
+  "scripts": {
+    "clean": "rm -rf node_modules dist cdk.out target"
+  }
+}

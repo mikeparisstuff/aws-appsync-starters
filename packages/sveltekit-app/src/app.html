@@ -1,0 +1,17 @@
+<!--
+This will typically be the only .html file in a sveltekit project. SvelteKit will replace the value of
+`%svelte.body%` with the fully evaluated HTML body of your application, given some route. SvelteKit apps
+are server-side rendered and thus by the time HTML is delivered to your users, this HTML is fully hydrated.
+-->
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" href="/favicon.ico" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		%svelte.head%
+	</head>
+	<body>
+		<div id="svelte">%svelte.body%</div>
+	</body>
+</html>

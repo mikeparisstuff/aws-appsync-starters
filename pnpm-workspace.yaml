@@ -1,0 +1,4 @@
+packages:
+  - 'packages/cdk'
+  - 'packages/sveltekit-app'
+  - 'packages/react-app'
