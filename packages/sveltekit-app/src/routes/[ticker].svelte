@@ -5,8 +5,8 @@ worth reading through the documentation to get a deeper understanding for how th
 The TLDR is that `svelte` is similar in spirit to react but most of the complicated work is done at
 compile time in svelte instead of runtime, like in react. A by-product of this is that svelte applications
 can be like really, really fast. Think of Svelte as a library (similar to how react frames itself) but
-also as a compiler that collects svelte, js/ts, and other input sources and produces an optimized JS bundle
-that implements your application on top of the browser DOM.
+also as a compiler that collects svelte, js/ts, and other input sources and produces an optimized JS
+that implements your logic on top of the browser DOM.
 
 SvelteKit is to svelte as a tool like Next.js is to react or Nuxt.js is to vue. It provides some opinionated
 guard rails that make it way easier than it should be to build an efficient, server-side rendered application.
